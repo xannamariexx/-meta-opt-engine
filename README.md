@@ -42,3 +42,21 @@ cd meta-opt-engine
 
 # Install dependencies (use a virtualenv!)
 pip install -r requirements.txt
+from x_adaptive_engine import XAdaptiveEngine
+
+engine = XAdaptiveEngine()  # Mock Grok-transformer base
+
+# Fake daily user data (texts, engagements, sentiments, novelties)
+user_batch = [
+    (["Empathy in AI is everything 💫", "Chaos creates breakthroughs"], 
+     [[1,1,0,1,1], [0,1,1,0,1]], [0.8, 0.6], [0.9, 0.75])
+]
+
+engine.daily_update(user_batch)  # Adapt overnight
+
+# Score new candidates
+candidates = ["A rebel take on the future.", "Safe mainstream news."]
+novelties = [0.92, 0.30]
+scores = engine.predict_feed(candidates, user_sentiment=0.7, content_novelties=novelties)
+
+print("Scores:", scores)  # Higher = more visible in feed
