@@ -1,0 +1,4 @@
+torch
+numpy
+peft          # for LoRA adaptation
+transformers  # if using Grok-style base models
